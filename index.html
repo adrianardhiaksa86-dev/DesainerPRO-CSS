@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DesainerPRO+ Ultra</title>
+
+  <style>
+    :root{
+      --bg0:#060816;
+      --bg1:#0b1224;
+      --bg2:#101a34;
+      --panel:rgba(10,16,33,.72);
+      --panel2:rgba(255,255,255,.05);
+      --line:rgba(255,255,255,.12);
+      --text:#eef7ff;
+      --muted:rgba(238,247,255,.68);
+      --accent:#00f5c8;
+      --accent2:#7c5cff;
+      --danger:#ff6b8b;
+      --shadow: 0 18px 50px rgba(0,0,0,.38);
+      --radius:24px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(0,245,200,.14), transparent 24%),
+        radial-gradient(circle at top right, rgba(124,92,255,.18), transparent 22%),
+        linear-gradient(160deg, var(--bg0), var(--bg1) 45%, var(--bg2));
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(transparent 0 96%, rgba(255,255,255,.03) 100%),
+        linear-gradient(90deg, transparent 0 96%, rgba(255,255,255,.03) 100%);
+      background-size: 100% 42px, 42px 100%;
+      opacity:.25;
+      mix-blend-mode: screen;
+    }
+
+    .app{
+      position:relative;
+      min-height:100vh;
+      padding:18px;
+    }
+
+    .header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:16px;
+      padding:18px 20px;
+      background: linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .header h1{
+      margin:0;
+      font-size:clamp(1.3rem, 2.6vw, 2.2rem);
+      letter-spacing:.4px;
+    }
+
+    .header p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.5;
+    }
+
+    .header .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:rgba(0,245,200,.12);
+      border:1px solid rgba(0,245,200,.22);
+      color:#b8fff0;
+      font-size:.85rem;
+      white-space:nowrap;
+    }
+
+    .shell{
+      display:grid;
+      grid-template-columns: minmax(310px, 1.15fr) minmax(310px, .95fr) minmax(310px, 1fr);
+      gap:16px;
+      align-items:start;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow:hidden;
+    }
+
+    .cardHead{
+      padding:16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom:1px solid var(--line);
+      background:rgba(255,255,255,.035);
+    }
+
+    .cardHead h2{
+      margin:0;
+      font-size:1rem;
+      letter-spacing:.3px;
+    }
+
+    .cardHead span{
+      font-size:.8rem;
+      color:var(--muted);
+    }
+
+    .cardBody{
+      padding:16px;
+    }
+
+    .stack{
+      display:grid;
+      gap:12px;
+    }
+
+    .grid2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:12px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .field label{
+      font-size:.78rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:rgba(238,247,255,.78);
+    }
+
+    .hint{
+      font-size:.82rem;
+      color:var(--muted);
+      line-height:1.5;
+      margin-top:-4px;
+    }
+
+    input, select, textarea, button{
+      font:inherit;
+    }
+
+    input[type="text"],
+    input[type="url"],
+    input[type="number"],
+    select,
+    textarea{
+      width:100%;
+      color:var(--text);
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:14px;
+      padding:12px 14px;
+      outline:none;
+      transition:.2s ease;
+    }
+
+    textarea{
+      min-height:92px;
+      resize:vertical;
+      line-height:1.5;
+    }
+
+    input[type="text"]:focus,
+    input[type="url"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus{
+      border-color:rgba(0,245,200,.55);
+      box-shadow:0 0 0 3px rgba(0,245,200,.12);
+    }
+
+    input[type="color"]{
+      width:100%;
+      min-height:44px;
+      border:none;
+      padding:0;
+      background:none;
+      cursor:pointer;
+    }
+
+    input[type="range"]{
+      width:100%;
+      accent-color:var(--accent);
+    }
+
+    .inline{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .inline > label{
+      font-size:.9rem;
+      color:var(--text);
+      text-transform:none;
+      letter-spacing:0;
+    }
+
+    .switchTiny{
+      width:18px;
+      height:18px;
+      accent-color:var(--accent);
+      transform:translateY(2px);
+    }
+
+    .btnRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      border:none;
+      border-radius:14px;
+      padding:12px 14px;
+      cursor:pointer;
+      font-weight:700;
+      color:#05111a;
+      background:linear-gradient(135deg, var(--accent), #8fffe7);
+      box-shadow:0 10px 30px rgba(0,245,200,.2);
+      transition:.2s ease;
+    }
+
+    .btn:hover{ transform:translateY(-1px); }
+    .btn:active{ transform:translateY(0) scale(.98); }
+
+    .btn.secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      box-shadow:none;
+    }
+
+    .btn.danger{
+      color:white;
+      background:linear-gradient(135deg, #ff6b8b, #ff8f6b);
+    }
+    
+    #designer {
+  display: flex;
+  gap: 20px;
+  }
+
+  .controls {
+    flex: 1;
+  }
+    
+    .preview {
+  position: fixed;
+  right: 20px;
+  top: 80px;
+  width: 250px;
+  padding: 20px;
+  border: 1px dashed #555;
+  text-align: center;
+  background: #020617;
+  z-index: 999;
+  }
+
+    .previewArea{
+      min-height:680px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .previewStage{
+      flex:1;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      position:relative;
+      background:
+        radial-gradient(circle at top, rgba(0,245,200,.10), transparent 32%),
+        linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+    }
+
+    .previewBox{
+      width:100%;
+      min-height:420px;
+      border:1px dashed rgba(255,255,255,.16);
+      border-radius:24px;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      background:rgba(4,8,18,.28);
+      overflow:hidden;
+    }
+
+    .previewBox .previewFrame{
+      width:100%;
+      display:grid;
+      place-items:center;
+      gap:12px;
+    }
+
+    .previewNote{
+      position:absolute;
+      right:16px;
+      bottom:14px;
+      font-size:.78rem;
+      color:rgba(238,247,255,.62);
+    }
+
+    .previewHelper{
+      margin-top:10px;
+      font-size:.83rem;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    .codeTabs{
+      display:flex;
+      gap:8px;
+      padding:14px 14px 0;
+      flex-wrap:wrap;
+    }
+
+    .tab{
+      flex:1 1 100px;
+      border:none;
+      border-radius:14px 14px 0 0;
+      padding:11px 12px;
+      color:var(--text);
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      border-bottom:none;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .tab.active{
+      background:linear-gradient(135deg, rgba(0,245,200,.92), rgba(143,255,231,.92));
+      color:#04111a;
+      font-weight:800;
+    }
+
+    .codeBody{
+      padding:0 14px 14px;
+    }
+
+    .codeArea{
+      width:100%;
+      min-height:260px;
+      border:none;
+      outline:none;
+      resize:vertical;
+      background:#08111d;
+      color:#a9ffe8;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:0 0 18px 18px;
+      padding:14px;
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-size:12px;
+      line-height:1.55;
+      white-space:pre;
+    }
+
+    .codeArea.hidden{ display:none; }
+
+    .sectionSpacer{
+      height:12px;
+    }
+
+    .group{
+      padding:12px;
+      background:rgba(255,255,255,.035);
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:18px;
+    }
+
+    .groupTitle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+      color:var(--text);
+      font-weight:700;
+      font-size:.92rem;
+    }
+
+    .groupTitle small{
+      color:var(--muted);
+      font-weight:400;
+    }
+
+    .hidden{ display:none !important; }
+
+    .previewDefault{
+      display:inline-block;
+      padding:12px 16px;
+      border-radius:16px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--text);
+      box-shadow:0 10px 30px rgba(0,0,0,.2);
+      user-select:none;
+    }
+
+    .previewLink{
+      text-decoration:none;
+    }
+
+    .previewButton{
+      cursor:pointer;
+    }
+
+    .previewText{
+      white-space:pre-wrap;
+      word-break:break-word;
+    }
+
+    .switchControl,
+    .checkControl{
+      display:inline-flex;
+      align-items:center;
+      gap:12px;
+      user-select:none;
+      cursor:pointer;
+      color:var(--text);
+    }
+
+    .switchControl input,
+    .checkControl input{
+      display:none;
+    }
+
+    .switchControl .slider{
+      width:58px;
+      height:32px;
+      border-radius:999px;
+      position:relative;
+      display:inline-block;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.14);
+      transition:.2s ease;
+      flex:0 0 auto;
+    }
+
+    .switchControl .slider::before{
+      content:"";
+      position:absolute;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      left:3px;
+      top:3px;
+      background:#fff;
+      transition:.2s ease;
+      box-shadow:0 6px 16px rgba(0,0,0,.25);
+    }
+
+    .switchControl input:checked + .slider{
+      background:linear-gradient(135deg, var(--accent), #8fffe7);
+    }
+
+    .switchControl input:checked + .slider::before{
+      transform:translateX(26px);
+    }
+
+    .switchControl .switchText,
+    .checkControl .checkText{
+      font-size:1rem;
+      line-height:1.35;
+    }
+
+    .checkControl .checkBox{
+      width:22px;
+      height:22px;
+      border-radius:7px;
+      border:1px solid rgba(255,255,255,.2);
+      background:rgba(255,255,255,.08);
+      display:inline-grid;
+      place-items:center;
+      flex:0 0 auto;
+      transition:.2s ease;
+    }
+
+    .checkControl .checkBox::before{
+      content:"";
+      width:10px;
+      height:6px;
+      border-left:3px solid transparent;
+      border-bottom:3px solid transparent;
+      transform:rotate(-45deg) translateY(-1px);
+      transition:.2s ease;
+    }
+
+    .checkControl input:checked + .checkBox{
+      background:linear-gradient(135deg, var(--accent), #8fffe7);
+      border-color:transparent;
+    }
+
+    .checkControl input:checked + .checkBox::before{
+      border-left-color:#04111a;
+      border-bottom-color:#04111a;
+    }
+
+    .rangeWrap{
+      width:min(100%, 460px);
+      display:grid;
+      gap:10px;
+    }
+
+    .rangeControl{
+      width:100%;
+      accent-color:var(--accent);
+    }
+
+    .rangeValue{
+      font-size:.82rem;
+      color:var(--muted);
+      text-align:right;
+    }
+
+    .badgeControl{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:fit-content;
+      font-weight:700;
+      letter-spacing:.02em;
+    }
+
+    .cardControl{
+      display:grid;
+      gap:12px;
+      width:min(100%, 520px);
+      text-align:left;
+    }
+
+    .cardControl .cardTitle{
+      font-size:1.18rem;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+
+    .cardControl .cardText{
+      color:rgba(238,247,255,.8);
+      line-height:1.55;
+    }
+
+    .cardControl .cardAction{
+      width:fit-content;
+      justify-self:start;
+      border:none;
+      border-radius:14px;
+      padding:11px 14px;
+      background:linear-gradient(135deg, var(--accent), #8fffe7);
+      color:#04111a;
+      font-weight:800;
+      cursor:pointer;
+    }
+
+    progress.progressControl{
+      width:min(100%, 420px);
+      height:22px;
+      border:none;
+      border-radius:999px;
+      overflow:hidden;
+      appearance:none;
+      background:rgba(255,255,255,.08);
+      accent-color:var(--accent);
+    }
+
+    progress.progressControl::-webkit-progress-bar{
+      background:rgba(255,255,255,.08);
+      border-radius:999px;
+    }
+
+    progress.progressControl::-webkit-progress-value{
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--accent), #8fffe7);
+    }
+
+    progress.progressControl::-moz-progress-bar{
+      border-radius:999px;
+      background:linear-gradient(135deg, var(--accent), #8fffe7);
+    }
+
+    .previewFrame .previewItem{
+      max-width:100%;
+    }
+
+    @keyframes dpPulse{
+      0%,100%{ transform:scale(1); }
+      50%{ transform:scale(1.03); }
+    }
+
+    @keyframes dpFloat{
+      0%,100%{ transform:translateY(0); }
+      50%{ transform:translateY(-6px); }
+    }
+
+    @keyframes dpGlow{
+      0%,100%{ filter:drop-shadow(0 0 0 rgba(0,0,0,0)); }
+      50%{ filter:drop-shadow(0 0 14px rgba(0,245,200,.45)); }
+    }
+
+    @keyframes dpShine{
+      0%{ background-position:-200% 0; }
+      100%{ background-position:200% 0; }
+    }
+
+    @keyframes dpGlitch{
+      0%{ transform:translate(0); }
+      20%{ transform:translate(-1px, 1px); }
+      40%{ transform:translate(1px, -1px); }
+      60%{ transform:translate(-2px, 0); }
+      80%{ transform:translate(2px, 1px); }
+      100%{ transform:translate(0); }
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%) translateY(16px);
+      background:rgba(7,14,25,.92);
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--text);
+      border-radius:999px;
+      padding:12px 16px;
+      box-shadow:var(--shadow);
+      opacity:0;
+      pointer-events:none;
+      transition:.22s ease;
+      z-index:9999;
+    }
+
+    .toast.show{
+      opacity:1;
+      transform:translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 1200px){
+      .shell{
+        grid-template-columns:1fr;
+      }
+      .previewArea{
+        min-height:auto;
+      }
+    }
+
+    @media (max-width: 720px){
+      .app{ padding:12px; }
+      .header{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .grid2,
+      .grid3{
+        grid-template-columns:1fr;
+      }
+      .btnRow{
+        width:100%;
+      }
+      .btn{
+        flex:1 1 140px;
+      }
+      .cardBody{
+        padding:14px;
+      }
+      .previewBox{
+        min-height:320px;
+      }
+    }
+  </style>
+
+  <style id="previewStyle"></style>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div>
+        <h1>DesainerPRO+ Ultra</h1>
+        <p>Designer CSS satu file dengan preview live, template HTML, generator kode, dan export full HTML.</p>
+      </div>
+      <div class="pill">⚡ Full features • Full working</div>
+    </header>
+
+    <div class="shell">
+      <!-- PANEL KIRI: CONTROL -->
+      <section class="card">
+        <div class="cardHead">
+          <h2>Kontrol Desain</h2>
+          <span>Selector + Style + Template</span>
+        </div>
+
+        <div class="cardBody">
+          <form id="designerForm" class="stack" autocomplete="off">
+            <div class="group">
+              <div class="groupTitle">Identitas Elemen <small>id / class + tipe HTML</small></div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="selectorMode">Mode selector</label>
+                  <select id="selectorMode">
+                    <option value="id">ID (#)</option>
+                    <option value="class">Class (.)</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="selectorName">Nama selector</label>
+                  <input type="text" id="selectorName" value="desainku" placeholder="contoh: tombolUtama" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="templateType">Tipe HTML</label>
+                <select id="templateType">
+                  <option value="text">Text / Heading / Span</option>
+                  <option value="button">Button</option>
+                  <option value="link">Link / Anchor</option>
+                  <option value="input">Input Text</option>
+                  <option value="textarea">Textarea</option>
+                  <option value="select">Options / Select</option>
+                  <option value="progress">Progress Bar</option>
+                  <option value="switch">Switch Checkbox</option>
+                  <option value="range">Seekbar / Range</option>
+                  <option value="checkbox">Checkbox</option>
+                  <option value="badge">Badge / Pill</option>
+                  <option value="card">Card / Box</option>
+                </select>
+              </div>
+
+              <div class="field groupVisible textGroup">
+                <label for="textTag">Tag text</label>
+                <select id="textTag">
+                  <option value="p">p</option>
+                  <option value="span">span</option>
+                  <option value="div">div</option>
+                  <option value="h1">h1</option>
+                  <option value="h2">h2</option>
+                  <option value="h3">h3</option>
+                </select>
+              </div>
+
+              <div class="field groupVisible cardGroup hidden">
+                <label for="cardTag">Tag card</label>
+                <select id="cardTag">
+                  <option value="article">article</option>
+                  <option value="section">section</option>
+                  <option value="div">div</option>
+                </select>
+              </div>
+
+              <div class="field groupVisible textGroup">
+                <label for="mainText">Main text</label>
+                <input type="text" id="mainText" value="Hello DesainerPRO+" placeholder="Teks utama" />
+              </div>
+
+              <div class="field groupVisible subTextGroup hidden">
+                <label for="subText">Sub text / body</label>
+                <textarea id="subText" placeholder="Teks tambahan"></textarea>
+              </div>
+
+              <div class="field groupVisible placeholderGroup hidden">
+                <label for="placeholderText">Placeholder</label>
+                <input type="text" id="placeholderText" value="Tulis sesuatu..." placeholder="Placeholder input" />
+              </div>
+
+              <div class="field groupVisible linkGroup hidden">
+                <label for="linkUrl">Link URL</label>
+                <input type="url" id="linkUrl" value="https://example.com" placeholder="https://..." />
+              </div>
+
+              <div class="field groupVisible optionsGroup hidden">
+                <label for="optionsText">Options</label>
+                <textarea id="optionsText">Option 1
+Option 2
+Option 3</textarea>
+                <div class="hint">Pisahkan dengan baris baru atau koma.</div>
+              </div>
+
+              <div class="grid2 groupVisible progressGroup hidden">
+                <div class="field">
+                  <label for="progressValue">Progress value</label>
+                  <input type="range" id="progressValue" min="0" max="100" value="70" />
+                </div>
+                <div class="field">
+                  <label>&nbsp;</label>
+                  <input type="number" id="progressValueBox" min="0" max="100" value="70" />
+                </div>
+              </div>
+
+              <div class="grid2 groupVisible rangeGroup hidden">
+                <div class="field">
+                  <label for="rangeValue">Range value</label>
+                  <input type="range" id="rangeValue" min="0" max="100" value="45" />
+                </div>
+                <div class="field">
+                  <label>&nbsp;</label>
+                  <input type="number" id="rangeValueBox" min="0" max="100" value="45" />
+                </div>
+              </div>
+
+              <div class="inline groupVisible checkedGroup hidden">
+                <input class="switchTiny" type="checkbox" id="checkedState" checked />
+                <label for="checkedState">Default checked / active</label>
+              </div>
+            </div>
+
+            <div class="group">
+              <div class="groupTitle">Warna & Tampilan <small>warna, border, shadow, background</small></div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="textColor">Text color</label>
+                  <input type="color" id="textColor" value="#00ffd0" />
+                </div>
+                <div class="field">
+                  <label for="bgColor1">Background 1</label>
+                  <input type="color" id="bgColor1" value="#0f172a" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="bgColor2">Background 2</label>
+                  <input type="color" id="bgColor2" value="#1d4ed8" />
+                </div>
+                <div class="field">
+                  <label for="gradientAngle">Gradient angle</label>
+                  <input type="range" id="gradientAngle" min="0" max="360" value="135" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="borderColor">Border color</label>
+                  <input type="color" id="borderColor" value="#00ffc3" />
+                </div>
+                <div class="field">
+                  <label for="shadowColor">Shadow color</label>
+                  <input type="color" id="shadowColor" value="#00ffc3" />
+                </div>
+              </div>
+
+              <div class="grid3">
+                <div class="field">
+                  <label for="borderWidth">Border size</label>
+                  <input type="range" id="borderWidth" min="0" max="12" value="2" />
+                </div>
+                <div class="field">
+                  <label for="radius">Radius</label>
+                  <input type="range" id="radius" min="0" max="60" value="16" />
+                </div>
+                <div class="field">
+                  <label for="shadowBlur">Shadow size</label>
+                  <input type="range" id="shadowBlur" min="0" max="70" value="18" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="borderStyle">Border style</label>
+                  <select id="borderStyle">
+                    <option value="solid">solid</option>
+                    <option value="dashed">dashed</option>
+                    <option value="dotted">dotted</option>
+                    <option value="double">double</option>
+                    <option value="groove">groove</option>
+                    <option value="ridge">ridge</option>
+                    <option value="none">none</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="opacity">Opacity</label>
+                  <input type="range" id="opacity" min="0.1" max="1" step="0.05" value="1" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="gradientToggle">Gradient background</label>
+                  <select id="gradientToggle">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="glassToggle">Glass effect</label>
+                  <select id="glassToggle">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="neonToggle">Neon glow</label>
+                  <select id="neonToggle">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="underlineToggle">Underline text</label>
+                  <select id="underlineToggle">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="group">
+              <div class="groupTitle">Tipografi & Ukuran <small>font, spacing, layout</small></div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="fontFamily">Font family</label>
+                  <select id="fontFamily">
+                    <option value="Arial, Helvetica, sans-serif">Arial</option>
+                    <option value="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif">System UI</option>
+                    <option value="'Trebuchet MS', Arial, sans-serif">Trebuchet</option>
+                    <option value="'Georgia', serif">Georgia</option>
+                    <option value="'Courier New', monospace">Courier New</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="fontWeight">Font weight</label>
+                  <select id="fontWeight">
+                    <option value="400">400</option>
+                    <option value="500">500</option>
+                    <option value="600">600</option>
+                    <option value="700" selected>700</option>
+                    <option value="800">800</option>
+                    <option value="900">900</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid3">
+                <div class="field">
+                  <label for="fontSize">Font size</label>
+                  <input type="range" id="fontSize" min="10" max="40" value="16" />
+                </div>
+                <div class="field">
+                  <label for="lineHeight">Line height</label>
+                  <input type="range" id="lineHeight" min="1" max="2.5" step="0.1" value="1.4" />
+                </div>
+                <div class="field">
+                  <label for="letterSpacing">Letter spacing</label>
+                  <input type="range" id="letterSpacing" min="-2" max="10" value="0" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="textAlign">Text align</label>
+                  <select id="textAlign">
+                    <option value="left">left</option>
+                    <option value="center">center</option>
+                    <option value="right">right</option>
+                    <option value="justify">justify</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="textTransform">Text transform</label>
+                  <select id="textTransform">
+                    <option value="none">none</option>
+                    <option value="uppercase">uppercase</option>
+                    <option value="lowercase">lowercase</option>
+                    <option value="capitalize">capitalize</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="padding">Padding</label>
+                  <input type="range" id="padding" min="0" max="40" value="12" />
+                </div>
+                <div class="field">
+                  <label for="margin">Margin</label>
+                  <input type="range" id="margin" min="0" max="40" value="0" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="widthValue">Width</label>
+                  <input type="text" id="widthValue" placeholder="auto / 100% / 320px" />
+                </div>
+                <div class="field">
+                  <label for="heightValue">Height</label>
+                  <input type="text" id="heightValue" placeholder="auto / 48px / 100%" />
+                </div>
+              </div>
+            </div>
+
+            <div class="group">
+              <div class="groupTitle">Efek Interaksi <small>hover, active, animasi, focus</small></div>
+
+              <div class="grid3">
+                <div class="field">
+                  <label for="hoverScale">Hover scale</label>
+                  <input type="range" id="hoverScale" min="1" max="1.35" step="0.01" value="1.04" />
+                </div>
+                <div class="field">
+                  <label for="hoverLift">Hover lift</label>
+                  <input type="range" id="hoverLift" min="-18" max="18" step="1" value="-2" />
+                </div>
+                <div class="field">
+                  <label for="hoverRotate">Hover rotate</label>
+                  <input type="range" id="hoverRotate" min="-12" max="12" step="1" value="0" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="activeScale">Active scale</label>
+                  <input type="range" id="activeScale" min="0.9" max="1" step="0.01" value="0.98" />
+                </div>
+                <div class="field">
+                  <label for="transitionSpeed">Transition speed</label>
+                  <input type="range" id="transitionSpeed" min="0.05" max="1.5" step="0.05" value="0.22" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="focusColor">Focus color</label>
+                  <input type="color" id="focusColor" value="#00ffc3" />
+                </div>
+                <div class="field">
+                  <label for="focusWidth">Focus outline</label>
+                  <input type="range" id="focusWidth" min="0" max="8" value="2" />
+                </div>
+              </div>
+
+              <div class="grid2">
+                <div class="field">
+                  <label for="animationType">Animation</label>
+                  <select id="animationType">
+                    <option value="none">none</option>
+                    <option value="pulse">pulse</option>
+                    <option value="float">float</option>
+                    <option value="glow">glow</option>
+                    <option value="shine">shine</option>
+                    <option value="glitch">glitch</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="animationDuration">Duration</label>
+                  <input type="range" id="animationDuration" min="0.3" max="5" step="0.1" value="1.5" />
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="customCss">Custom CSS tambahan</label>
+                <textarea id="customCss" placeholder="Tulis CSS tambahan di sini..."></textarea>
+              </div>
+            </div>
+
+            <div class="btnRow">
+              <button type="button" class="btn" id="btnCopyCurrent">Copy Kode Aktif</button>
+              <button type="button" class="btn secondary" id="btnCopyAll">Copy Full HTML</button>
+              <button type="button" class="btn secondary" id="btnDownload">Download HTML</button>
+              <button type="reset" class="btn danger" id="btnReset">Reset</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- PANEL TENGAH: PREVIEW -->
+      <section class="card previewArea">
+        <div class="cardHead">
+          <h2>Live Preview</h2>
+          <span>hasil elemen aktif</span>
+        </div>
+
+        <div class="previewStage">
+          <div class="previewBox">
+            <div id="previewFrame" class="previewFrame"></div>
+          </div>
+          <div class="previewNote">Preview akan berubah otomatis saat kamu geser kontrol.</div>
+        </div>
+
+        <div class="cardBody">
+          <div class="previewHelper" id="previewInfo">
+            Pilih tipe HTML lalu atur warna, radius, shadow, animasi, dan interaksi.
+          </div>
+        </div>
+      </section>
+
+      <!-- PANEL KANAN: CODE OUTPUT -->
+      <section class="card">
+        <div class="cardHead">
+          <h2>Generator Kode</h2>
+          <span>HTML + CSS + Full</span>
+        </div>
+
+        <div class="codeTabs">
+          <button class="tab active" type="button" data-tab="html">HTML</button>
+          <button class="tab" type="button" data-tab="css">CSS</button>
+          <button class="tab" type="button" data-tab="full">FULL</button>
+        </div>
+
+        <div class="codeBody">
+          <textarea id="htmlCode" class="codeArea" readonly></textarea>
+          <textarea id="cssCode" class="codeArea hidden" readonly></textarea>
+          <textarea id="fullCode" class="codeArea hidden" readonly></textarea>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">Tersalin</div>
+
+  <script>
+    // ---------- Helpers ----------
+    const $ = (id) => document.getElementById(id);
+
+    const ui = {
+      form: $("designerForm"),
+      previewFrame: $("previewFrame"),
+      previewStyle: $("previewStyle"),
+      previewInfo: $("previewInfo"),
+      toast: $("toast"),
+
+      selectorMode: $("selectorMode"),
+      selectorName: $("selectorName"),
+      templateType: $("templateType"),
+      textTag: $("textTag"),
+      cardTag: $("cardTag"),
+
+      mainText: $("mainText"),
+      subText: $("subText"),
+      placeholderText: $("placeholderText"),
+      linkUrl: $("linkUrl"),
+      optionsText: $("optionsText"),
+      progressValue: $("progressValue"),
+      progressValueBox: $("progressValueBox"),
+      rangeValue: $("rangeValue"),
+      rangeValueBox: $("rangeValueBox"),
+      checkedState: $("checkedState"),
+
+      textColor: $("textColor"),
+      bgColor1: $("bgColor1"),
+      bgColor2: $("bgColor2"),
+      gradientAngle: $("gradientAngle"),
+      borderColor: $("borderColor"),
+      shadowColor: $("shadowColor"),
+      borderWidth: $("borderWidth"),
+      radius: $("radius"),
+      shadowBlur: $("shadowBlur"),
+      borderStyle: $("borderStyle"),
+      opacity: $("opacity"),
+      gradientToggle: $("gradientToggle"),
+      glassToggle: $("glassToggle"),
+      neonToggle: $("neonToggle"),
+      underlineToggle: $("underlineToggle"),
+
+      fontFamily: $("fontFamily"),
+      fontWeight: $("fontWeight"),
+      fontSize: $("fontSize"),
+      lineHeight: $("lineHeight"),
+      letterSpacing: $("letterSpacing"),
+      textAlign: $("textAlign"),
+      textTransform: $("textTransform"),
+      padding: $("padding"),
+      margin: $("margin"),
+      widthValue: $("widthValue"),
+      heightValue: $("heightValue"),
+
+      hoverScale: $("hoverScale"),
+      hoverLift: $("hoverLift"),
+      hoverRotate: $("hoverRotate"),
+      activeScale: $("activeScale"),
+      transitionSpeed: $("transitionSpeed"),
+      focusColor: $("focusColor"),
+      focusWidth: $("focusWidth"),
+      animationType: $("animationType"),
+      animationDuration: $("animationDuration"),
+      customCss: $("customCss"),
+
+      htmlCode: $("htmlCode"),
+      cssCode: $("cssCode"),
+      fullCode: $("fullCode"),
+      tabButtons: document.querySelectorAll(".tab"),
+      copyCurrent: $("btnCopyCurrent"),
+      copyAll: $("btnCopyAll"),
+      download: $("btnDownload"),
+      reset: $("btnReset")
+    };
+
+    let activeTab = "html";
+
+    function sanitizeName(value) {
+      return String(value || "")
+        .trim()
+        .replace(/\s+/g, "-")
+        .replace(/[^a-zA-Z0-9_-]/g, "")
+        .replace(/-+/g, "-")
+        .replace(/^[-_]+|[-_]+$/g, "") || "desainku";
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value).replace(/`/g, "&#96;");
+    }
+
+    function parseOptions(text) {
+      const items = String(text || "")
+        .split(/\n|,/)
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      return items.length ? items : ["Option 1", "Option 2", "Option 3"];
+    }
+
+    function clampNumber(value, min, max, fallback) {
+      const n = Number(value);
+      if (Number.isNaN(n)) return fallback;
+      return Math.min(max, Math.max(min, n));
+    }
+
+    function normalizeLength(value, fallback) {
+      const raw = String(value || "").trim();
+      if (!raw) return fallback;
+      if (/^-?\d+(\.\d+)?$/.test(raw)) return `${raw}px`;
+      return raw;
+    }
+
+    function safeCssForStyleTag(css) {
+      return String(css).replace(/<\/style>/gi, "<\\/style>");
+    }
+
+    function componentClass(type) {
+      switch (type) {
+        case "switch": return "switchControl";
+        case "checkbox": return "checkControl";
+        case "range": return "rangeControl";
+        case "progress": return "progressControl";
+        case "card": return "cardControl";
+        case "badge": return "badgeControl";
+        default: return "";
+      }
+    }
+
+    function selectorAttr(selectorValue, cls = "") {
+      const safe = sanitizeName(selectorValue);
+      if (ui.selectorMode.value === "id") {
+        return cls ? `id="${safe}" class="${cls}"` : `id="${safe}"`;
+      }
+      return cls ? `class="${safe} ${cls}"` : `class="${safe}"`;
+    }
+
+    function defaultWidthByType(type) {
+      switch (type) {
+        case "input":
+        case "textarea":
+        case "select":
+          return "min(100%, 360px)";
+        case "button":
+        case "link":
+        case "badge":
+          return "fit-content";
+        case "progress":
+          return "min(100%, 420px)";
+        case "range":
+          return "min(100%, 460px)";
+        case "card":
+          return "min(100%, 520px)";
+        default:
+          return "auto";
+      }
+    }
+
+    function defaultHeightByType(type) {
+      switch (type) {
+        case "textarea":
+          return "140px";
+        case "progress":
+          return "22px";
+        default:
+          return "auto";
+      }
+    }
+
+    function buildAnimationCss() {
+      const animType = ui.animationType.value;
+      const duration = Math.max(0.3, Number(ui.animationDuration.value) || 1.5);
+
+      switch (animType) {
+        case "pulse":
+          return `dpPulse ${duration}s ease-in-out infinite`;
+        case "float":
+          return `dpFloat ${duration}s ease-in-out infinite`;
+        case "glow":
+          return `dpGlow ${duration}s ease-in-out infinite`;
+        case "shine":
+          return `dpShine ${duration}s linear infinite`;
+        case "glitch":
+          return `dpGlitch ${duration}s steps(2, end) infinite`;
+        default:
+          return "";
+      }
+    }
+
+    function buildBaseCss(selector, type) {
+      const bg1 = ui.bgColor1.value;
+      const bg2 = ui.bgColor2.value;
+      const textColor = ui.textColor.value;
+      const borderColor = ui.borderColor.value;
+      const shadowColor = ui.shadowColor.value;
+      const borderWidth = Number(ui.borderWidth.value);
+      const radius = Number(ui.radius.value);
+      const shadowBlur = Number(ui.shadowBlur.value);
+      const borderStyle = ui.borderStyle.value;
+      const opacity = ui.opacity.value;
+      const gradientOn = ui.gradientToggle.value === "on";
+      const glassOn = ui.glassToggle.value === "on";
+      const neonOn = ui.neonToggle.value === "on";
+      const underlineOn = ui.underlineToggle.value === "on";
+      const fontFamily = ui.fontFamily.value;
+      const fontWeight = ui.fontWeight.value;
+      const fontSize = Number(ui.fontSize.value);
+      const lineHeight = ui.lineHeight.value;
+      const letterSpacing = Number(ui.letterSpacing.value);
+      const textAlign = ui.textAlign.value;
+      const textTransform = ui.textTransform.value;
+      const padding = Number(ui.padding.value);
+      const margin = Number(ui.margin.value);
+      const hoverScale = Number(ui.hoverScale.value);
+      const hoverLift = Number(ui.hoverLift.value);
+      const hoverRotate = Number(ui.hoverRotate.value);
+      const activeScale = Number(ui.activeScale.value);
+      const transitionSpeed = Number(ui.transitionSpeed.value);
+      const focusColor = ui.focusColor.value;
+      const focusWidth = Number(ui.focusWidth.value);
+      const backgroundValue = gradientOn
+        ? `linear-gradient(${ui.gradientAngle.value}deg, ${bg1}, ${bg2})`
+        : bg1;
+
+      const boxShadow = shadowBlur > 0
+        ? (neonOn
+            ? `0 0 ${shadowBlur}px ${shadowColor}, 0 0 ${Math.round(shadowBlur * 1.8)}px ${shadowColor}`
+            : `0 0 ${shadowBlur}px ${shadowColor}`)
+        : "none";
+
+      const textShadow = shadowBlur > 0
+        ? `0 0 ${Math.max(2, Math.round(shadowBlur / 3))}px ${shadowColor}`
+        : "none";
+
+      const animation = buildAnimationCss();
+
+      const common = `
+${selector} {
+  box-sizing: border-box;
+  color: ${textColor};
+  background: ${glassOn ? "rgba(255,255,255,.08)" : backgroundValue};
+  border: ${borderWidth}px ${borderStyle} ${borderColor};
+  border-radius: ${radius}px;
+  box-shadow: ${boxShadow};
+  opacity: ${opacity};
+  font-family: ${fontFamily};
+  font-weight: ${fontWeight};
+  font-size: ${fontSize}px;
+  line-height: ${lineHeight};
+  letter-spacing: ${letterSpacing}px;
+  text-align: ${textAlign};
+  text-transform: ${textTransform};
+  text-decoration: ${underlineOn ? "underline" : "none"};
+  padding: ${padding}px;
+  margin: ${margin}px;
+  transition:
+    transform ${transitionSpeed}s ease,
+    box-shadow ${transitionSpeed}s ease,
+    filter ${transitionSpeed}s ease,
+    background ${transitionSpeed}s ease,
+    color ${transitionSpeed}s ease,
+    border-color ${transitionSpeed}s ease,
+    opacity ${transitionSpeed}s ease;
+  ${glassOn ? "backdrop-filter: blur(14px);" : ""}
+  ${animation ? `animation: ${animation};` : ""}
+  ${animation === "dpShine " + Number(ui.animationDuration.value) + "s linear infinite" ? "background-size: 200% 100%;" : ""}
+  ${textShadow !== "none" ? `text-shadow: ${textShadow};` : ""}
+}
+
+${selector}:hover {
+  transform: scale(${hoverScale}) translateY(${hoverLift}px) rotate(${hoverRotate}deg);
+  filter: brightness(1.05);
+}
+
+${selector}:active {
+  transform: scale(${activeScale});
+}
+`;
+
+      const focusRule = focusWidth > 0 ? `${selector}:focus { outline: ${focusWidth}px solid ${focusColor}; outline-offset: 2px; }\n` : "";
+
+      return {
+        backgroundValue,
+        boxShadow,
+        textShadow,
+        common,
+        focusRule
+      };
+    }
+
+    function buildCssForCurrent(selector) {
+      const type = ui.templateType.value;
+      const cls = componentClass(type);
+      const scopedSelector = cls ? `${selector}.${cls}` : selector;
+      const width = normalizeLength(ui.widthValue.value, defaultWidthByType(type));
+      const height = normalizeLength(ui.heightValue.value, defaultHeightByType(type));
+      const shared = buildBaseCss(scopedSelector, type);
+
+      let css = "";
+
+      if (type === "text" || type === "button" || type === "link" || type === "input" || type === "textarea" || type === "select" || type === "badge" || type === "card") {
+        const isInline = type === "text" || type === "badge" || type === "button" || type === "link";
+        const display = type === "button" || type === "link" ? "inline-flex" :
+                        type === "badge" ? "inline-flex" :
+                        type === "card" ? "grid" : (isInline ? "inline-block" : "block");
+        const align = type === "button" || type === "link" || type === "badge" ? "center" : "initial";
+        const justify = type === "button" || type === "link" || type === "badge" ? "center" : "initial";
+        const cursor = type === "button" || type === "link" ? "pointer" : "default";
+        const appearance = type === "input" || type === "textarea" || type === "select" ? "none" : "auto";
+        const backgroundSize = ui.animationType.value === "shine" ? "200% 100%" : "auto";
+        const extra = [];
+
+        extra.push(`display: ${display};`);
+        extra.push(`align-items: ${align};`);
+        extra.push(`justify-content: ${justify};`);
+        extra.push(`cursor: ${cursor};`);
+        extra.push(`width: ${width};`);
+        extra.push(`height: ${height};`);
+        extra.push(`appearance: ${appearance};`);
+        extra.push(`background-size: ${backgroundSize};`);
+
+        if (type === "button" || type === "link") {
+          extra.push("user-select: none;");
+        }
+
+        if (type === "input" || type === "textarea" || type === "select") {
+          extra.push("outline: none;");
+          extra.push("background-clip: padding-box;");
+          extra.push("caret-color: currentColor;");
+        }
+
+        if (type === "textarea") {
+          extra.push("resize: vertical;");
+          extra.push("min-height: 140px;");
+        }
+
+        if (type === "select") {
+          extra.push("cursor: pointer;");
+          extra.push("padding-right: 42px;");
+        }
+
+        if (type === "text") {
+          extra.push("white-space: pre-wrap;");
+          extra.push("word-break: break-word;");
+        }
+
+        if (type === "badge") {
+          extra.push("width: fit-content;");
+          extra.push("padding-inline: 14px;");
+        }
+
+        if (type === "card") {
+          extra.push("grid-template-columns: 1fr;");
+          extra.push("gap: 12px;");
+          extra.push("text-align: left;");
+          extra.push("max-width: min(100%, 520px);");
+        }
+
+        css += `${scopedSelector} {\n  ${extra.join("\n  ")}\n}\n`;
+        css += shared.common;
+
+        if (type === "select") {
+          css += `
+${scopedSelector} option {
+  background: ${ui.bgColor1.value};
+  color: ${ui.textColor.value};
+}
+`;
+        }
+
+        if (type === "input" || type === "textarea") {
+          css += `
+${scopedSelector}::placeholder {
+  color: rgba(255,255,255,.5);
+}
+`;
+        }
+
+        if (type === "link") {
+          css += `
+${scopedSelector} {
+  text-decoration: ${ui.underlineToggle.value === "on" ? "underline" : "none"};
+}
+`;
+        }
+
+        if (type === "card") {
+          css += `
+${scopedSelector} .cardTitle {
+  margin: 0;
+  font-size: ${Math.max(16, Number(ui.fontSize.value) + 5)}px;
+  font-weight: 800;
+}
+
+${scopedSelector} .cardText {
+  margin: 0;
+  opacity: .82;
+  line-height: 1.6;
+}
+
+${scopedSelector} .cardAction {
+  width: fit-content;
+  justify-self: start;
+}
+`;
+        }
+
+        css += shared.focusRule;
+        return css + (ui.customCss.value.trim() ? `\n/* Custom CSS tambahan */\n${ui.customCss.value.trim()}\n` : "");
+      }
+
+      if (type === "progress") {
+        const radius = Number(ui.radius.value);
+        const shadowBlur = Number(ui.shadowBlur.value);
+        const shadowColor = ui.shadowColor.value;
+        const borderColor = ui.borderColor.value;
+        const bg1 = ui.bgColor1.value;
+        const bg2 = ui.bgColor2.value;
+        const gradientOn = ui.gradientToggle.value === "on";
+        const track = gradientOn ? `linear-gradient(${ui.gradientAngle.value}deg, ${bg1}, ${bg2})` : bg1;
+        const fill = gradientOn ? `linear-gradient(${ui.gradientAngle.value}deg, ${bg1}, ${bg2})` : bg2;
+        const shadow = shadowBlur > 0 ? `0 0 ${shadowBlur}px ${shadowColor}` : "none";
+        css += `
+${scopedSelector} {
+  width: ${width};
+  height: ${height};
+  appearance: none;
+  border: ${Number(ui.borderWidth.value)}px ${ui.borderStyle.value} ${borderColor};
+  border-radius: ${radius}px;
+  overflow: hidden;
+  background: ${track};
+  box-shadow: ${shadow};
+  opacity: ${ui.opacity.value};
+  transition: width ${Number(ui.transitionSpeed.value)}s ease, filter ${Number(ui.transitionSpeed.value)}s ease;
+}
+
+${scopedSelector}::-webkit-progress-bar {
+  background: ${track};
+  border-radius: ${radius}px;
+}
+
+${scopedSelector}::-webkit-progress-value {
+  border-radius: ${radius}px;
+  background: ${fill};
+}
+
+${scopedSelector}::-moz-progress-bar {
+  border-radius: ${radius}px;
+  background: ${fill};
+}
+`;
+        return css + (ui.customCss.value.trim() ? `\n/* Custom CSS tambahan */\n${ui.customCss.value.trim()}\n` : "");
+      }
+
+      if (type === "range") {
+        const accent = ui.textColor.value;
+        const shadowBlur = Number(ui.shadowBlur.value);
+        const borderColor = ui.borderColor.value;
+        const radius = Number(ui.radius.value);
+        const shadowColor = ui.shadowColor.value;
+        const shadow = shadowBlur > 0 ? `0 0 ${shadowBlur}px ${shadowColor}` : "none";
+        css += `
+${scopedSelector} {
+  width: ${width};
+  height: auto;
+  appearance: none;
+  accent-color: ${accent};
+  background: transparent;
+  border: ${Number(ui.borderWidth.value)}px ${ui.borderStyle.value} ${borderColor};
+  border-radius: ${radius}px;
+  box-shadow: ${shadow};
+  padding: 10px;
+  cursor: pointer;
+}
+
+${scopedSelector}::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, ${ui.bgColor1.value}, ${ui.bgColor2.value});
+}
+
+${scopedSelector}::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -6px;
+  border-radius: 50%;
+  border: 2px solid ${ui.borderColor.value};
+  background: ${ui.textColor.value};
+  box-shadow: 0 0 10px ${ui.shadowColor.value};
+}
+
+${scopedSelector}::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, ${ui.bgColor1.value}, ${ui.bgColor2.value});
+}
+
+${scopedSelector}::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid ${ui.borderColor.value};
+  background: ${ui.textColor.value};
+  box-shadow: 0 0 10px ${ui.shadowColor.value};
+}
+`;
+        return css + (ui.customCss.value.trim() ? `\n/* Custom CSS tambahan */\n${ui.customCss.value.trim()}\n` : "");
+      }
+
+      if (type === "switch") {
+        const radius = Number(ui.radius.value);
+        const shadowBlur = Number(ui.shadowBlur.value);
+        const shadowColor = ui.shadowColor.value;
+        const shadow = shadowBlur > 0 ? `0 0 ${shadowBlur}px ${shadowColor}` : "none";
+        css += `
+${scopedSelector} {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+  cursor: pointer;
+  color: ${ui.textColor.value};
+  width: ${width};
+  height: ${height};
+  padding: ${Number(ui.padding.value)}px;
+  margin: ${Number(ui.margin.value)}px;
+  font-family: ${ui.fontFamily.value};
+  font-size: ${Number(ui.fontSize.value)}px;
+  font-weight: ${ui.fontWeight.value};
+  letter-spacing: ${Number(ui.letterSpacing.value)}px;
+  opacity: ${ui.opacity.value};
+}
+
+${scopedSelector} input {
+  display: none;
+}
+
+${scopedSelector} .slider {
+  width: 58px;
+  height: 32px;
+  position: relative;
+  display: inline-block;
+  border-radius: 999px;
+  background: rgba(255,255,255,.14);
+  border: ${Number(ui.borderWidth.value)}px ${ui.borderStyle.value} ${ui.borderColor.value};
+  box-shadow: ${shadow};
+  transition: .2s ease;
+  flex: 0 0 auto;
+}
+
+${scopedSelector} .slider::before {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: #fff;
+  transition: .2s ease;
+}
+
+${scopedSelector} input:checked + .slider {
+  background: linear-gradient(135deg, ${ui.bgColor1.value}, ${ui.bgColor2.value});
+}
+
+${scopedSelector} input:checked + .slider::before {
+  transform: translateX(26px);
+}
+`;
+        return css + (ui.customCss.value.trim() ? `\n/* Custom CSS tambahan */\n${ui.customCss.value.trim()}\n` : "");
+      }
+
+      if (type === "checkbox") {
+        const shadowBlur = Number(ui.shadowBlur.value);
+        const shadowColor = ui.shadowColor.value;
+        const shadow = shadowBlur > 0 ? `0 0 ${shadowBlur}px ${shadowColor}` : "none";
+        css += `
+${scopedSelector} {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+  cursor: pointer;
+  color: ${ui.textColor.value};
+  width: ${width};
+  height: ${height};
+  padding: ${Number(ui.padding.value)}px;
+  margin: ${Number(ui.margin.value)}px;
+  font-family: ${ui.fontFamily.value};
+  font-size: ${Number(ui.fontSize.value)}px;
+  font-weight: ${ui.fontWeight.value};
+  letter-spacing: ${Number(ui.letterSpacing.value)}px;
+  opacity: ${ui.opacity.value};
+}
+
+${scopedSelector} input {
+  display: none;
+}
+
+${scopedSelector} .checkBox {
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  border: ${Number(ui.borderWidth.value)}px ${ui.borderStyle.value} ${ui.borderColor.value};
+  background: rgba(255,255,255,.08);
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  transition: .2s ease;
+  box-shadow: ${shadow};
+}
+
+${scopedSelector} .checkBox::before {
+  content: "";
+  width: 10px;
+  height: 6px;
+  border-left: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  transform: rotate(-45deg) translateY(-1px);
+  transition: .2s ease;
+}
+
+${scopedSelector} input:checked + .checkBox {
+  background: linear-gradient(135deg, ${ui.bgColor1.value}, ${ui.bgColor2.value});
+}
+
+${scopedSelector} input:checked + .checkBox::before {
+  border-left-color: #04111a;
+  border-bottom-color: #04111a;
+}
+`;
+        return css + (ui.customCss.value.trim() ? `\n/* Custom CSS tambahan */\n${ui.customCss.value.trim()}\n` : "");
+      }
+
+      return css + (ui.customCss.value.trim() ? `\n/* Custom CSS tambahan */\n${ui.customCss.value.trim()}\n` : "");
+    }
+
+    function buildHtmlForCurrent(selector, forPreview = false) {
+      const type = ui.templateType.value;
+      const name = sanitizeName(selector);
+      const cls = componentClass(type);
+      const attr = forPreview ? `id="previewTarget"${cls ? ` class="${cls}"` : ""}` : selectorAttr(name, cls);
+      const mainText = escapeHtml(ui.mainText.value.trim() || "Teks");
+      const subText = escapeHtml(ui.subText.value.trim() || "Deskripsi tambahan");
+      const placeholder = escapeAttr(ui.placeholderText.value.trim() || "Tulis sesuatu...");
+      const linkUrl = escapeAttr(ui.linkUrl.value.trim() || "#");
+      const options = parseOptions(ui.optionsText.value);
+      const progress = clampNumber(ui.progressValue.value, 0, 100, 70);
+      const range = clampNumber(ui.rangeValue.value, 0, 100, 45);
+      const checked = ui.checkedState.checked ? "checked" : "";
+      const tag = ui.textTag.value;
+      const cardTag = ui.cardTag.value;
+
+      switch (type) {
+        case "text":
+          return `<${tag} ${attr}>${mainText}</${tag}>`;
+
+        case "button":
+          return `<button type="button" ${attr}>${mainText}</button>`;
+
+        case "link":
+          return `<a ${attr} href="${linkUrl}" target="_blank" rel="noopener noreferrer">${mainText}</a>`;
+
+        case "input":
+          return `<input ${attr} type="text" placeholder="${placeholder}" value="${mainText}" />`;
+
+        case "textarea":
+          return `<textarea ${attr} placeholder="${placeholder}">${ui.subText.value.trim() ? subText : mainText}</textarea>`;
+
+        case "select":
+          return `<select ${attr}>\n${options.map((opt, i) => `  <option${i === 0 ? " selected" : ""}>${escapeHtml(opt)}</option>`).join("\n")}\n</select>`;
+
+        case "progress":
+          return `<progress ${attr} value="${progress}" max="100">${progress}%</progress>`;
+
+        case "switch":
+          return `<label ${attr}>\n  <input type="checkbox" ${checked} />\n  <span class="slider"></span>\n  <span class="switchText">${mainText}</span>\n</label>`;
+
+        case "range":
+          return `<input ${attr} class="${cls ? `${cls}` : ""}" type="range" min="0" max="100" value="${range}" />`.replace('class="" ', "");
+
+        case "checkbox":
+          return `<label ${attr}>\n  <input type="checkbox" ${checked} />\n  <span class="checkBox"></span>\n  <span class="checkText">${mainText}</span>\n</label>`;
+
+        case "badge":
+          return `<span ${attr}>${mainText}</span>`;
+
+        case "card":
+          return `<${cardTag} ${attr}>\n  <div class="cardTitle">${mainText}</div>\n  <div class="cardText">${subText}</div>\n  <button type="button" class="cardAction">${escapeHtml(ui.mainText.value.trim() || "Action")}</button>\n</${cardTag}>`;
+
+        default:
+          return `<div ${attr}>${mainText}</div>`;
+      }
+    }
+
+    function buildPreviewHtml() {
+      const type = ui.templateType.value;
+      const preview = buildHtmlForCurrent("previewTarget", true);
+
+      if (type === "range") {
+        const value = clampNumber(ui.rangeValue.value, 0, 100, 45);
+        return `<div class="rangeWrap">${preview}<div class="rangeValue">${value}</div></div>`;
+      }
+
+      if (type === "progress") {
+        return preview;
+      }
+
+      if (type === "card") {
+        return preview;
+      }
+
+      return preview;
+    }
+
+    function buildFullHtml(html, css) {
+      const safeCss = safeCssForStyleTag(css);
+      return `<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hasil Desain</title>
+  <style>
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+      background:#0f172a;
+      color:#fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    ${safeCss}
+  </style>
+</head>
+<body>
+  ${html}
+</body>
+</html>`;
+    }
+
+    function updateVisibility() {
+      const type = ui.templateType.value;
+
+      document.querySelectorAll(".groupVisible").forEach(el => el.classList.add("hidden"));
+
+      document.querySelectorAll(".textGroup").forEach(el => el.classList.toggle("hidden", !(type === "text" || type === "button" || type === "link" || type === "badge" || type === "card")));
+      document.querySelectorAll(".subTextGroup").forEach(el => el.classList.toggle("hidden", !(type === "card" || type === "textarea")));
+      document.querySelectorAll(".placeholderGroup").forEach(el => el.classList.toggle("hidden", !(type === "input" || type === "textarea")));
+      document.querySelectorAll(".linkGroup").forEach(el => el.classList.toggle("hidden", type !== "link"));
+      document.querySelectorAll(".optionsGroup").forEach(el => el.classList.toggle("hidden", type !== "select"));
+      document.querySelectorAll(".progressGroup").forEach(el => el.classList.toggle("hidden", type !== "progress"));
+      document.querySelectorAll(".rangeGroup").forEach(el => el.classList.toggle("hidden", type !== "range"));
+      document.querySelectorAll(".checkedGroup").forEach(el => el.classList.toggle("hidden", !(type === "switch" || type === "checkbox")));
+      document.querySelectorAll(".cardGroup").forEach(el => el.classList.toggle("hidden", type !== "card"));
+    }
+
+    function syncRangeBoxes() {
+      ui.progressValueBox.value = ui.progressValue.value;
+      ui.rangeValueBox.value = ui.rangeValue.value;
+    }
+
+    function render() {
+      updateVisibility();
+      syncRangeBoxes();
+
+      const selectorName = sanitizeName(ui.selectorName.value || "desainku");
+      const selector = ui.selectorMode.value === "id" ? `#${selectorName}` : `.${selectorName}`;
+
+      const html = buildHtmlForCurrent(selectorName, false);
+      const css = buildCssForCurrent(selector);
+      const full = buildFullHtml(html, css);
+
+      ui.previewFrame.innerHTML = buildPreviewHtml();
+      ui.previewStyle.textContent = css.replace(/#desainku/g, "#previewTarget").replace(/\.desainku/g, "#previewTarget");
+      ui.htmlCode.value = html;
+      ui.cssCode.value = css;
+      ui.fullCode.value = full;
+
+      const type = ui.templateType.value;
+      const infoText = {
+        text: "Tipe text/heading/span. Ubah tag, font, warna, radius, shadow, hover, dan animasi.",
+        button: "Tombol interaktif dengan efek hover, active, glow, gradient, dan animasi.",
+        link: "Anchor/link dengan styling penuh. Cocok untuk tombol CTA atau navigasi.",
+        input: "Input text yang bisa kamu desain agar serasi dengan UI website.",
+        textarea: "Textarea dengan ukuran, border, background, dan tipografi penuh.",
+        select: "Select/options lengkap untuk dropdown HTML.",
+        progress: "Progress bar dengan warna track, fill, radius, dan shadow.",
+        switch: "Switch checkbox custom dengan slider dan label.",
+        range: "Seekbar / slider input range yang bisa dipakai untuk setting nilai.",
+        checkbox: "Checkbox custom dengan visual check yang lebih modern.",
+        badge: "Badge / pill kecil untuk label, status, dan tag.",
+        card: "Card / box komponen lengkap dengan judul, isi, dan tombol aksi."
+      };
+      ui.previewInfo.textContent = infoText[type] || "Preview live akan mengikuti semua perubahan.";
+    }
+
+    async function copyText(text) {
+      const value = String(text || "");
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(value);
+          showToast("Berhasil disalin");
+          return;
+        }
+      } catch (e) {
+        // Fallback di bawah
+      }
+
+      const ta = document.createElement("textarea");
+      ta.value = value;
+      ta.setAttribute("readonly", "true");
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      ta.style.top = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showToast("Berhasil disalin");
+      } catch (err) {
+        showToast("Gagal menyalin");
+      }
+      document.body.removeChild(ta);
+    }
+
+    function showToast(message) {
+      ui.toast.textContent = message;
+      ui.toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => ui.toast.classList.remove("show"), 1200);
+    }
+
+    function activeCodeValue() {
+      if (activeTab === "html") return ui.htmlCode.value;
+      if (activeTab === "css") return ui.cssCode.value;
+      return ui.fullCode.value;
+    }
+
+    function setTab(tab) {
+      activeTab = tab;
+      ui.tabButtons.forEach(btn => btn.classList.toggle("active", btn.dataset.tab === tab));
+
+      ui.htmlCode.classList.toggle("hidden", tab !== "html");
+      ui.cssCode.classList.toggle("hidden", tab !== "css");
+      ui.fullCode.classList.toggle("hidden", tab !== "full");
+    }
+
+    function downloadFile(filename, content) {
+      const blob = new Blob([content], { type: "text/html;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      showToast("File HTML dibuat");
+    }
+
+    // ---------- Events ----------
+    ui.form.addEventListener("input", () => {
+      syncRangeBoxes();
+      render();
+    });
+
+    ui.form.addEventListener("change", () => {
+      syncRangeBoxes();
+      render();
+    });
+
+    ui.form.addEventListener("reset", () => {
+      setTimeout(() => {
+        ui.selectorMode.value = "id";
+        ui.selectorName.value = "desainku";
+        ui.templateType.value = "text";
+        ui.textTag.value = "p";
+        ui.cardTag.value = "article";
+        ui.mainText.value = "Hello DesainerPRO+";
+        ui.subText.value = "";
+        ui.placeholderText.value = "Tulis sesuatu...";
+        ui.linkUrl.value = "https://example.com";
+        ui.optionsText.value = "Option 1\nOption 2\nOption 3";
+        ui.progressValue.value = 70;
+        ui.progressValueBox.value = 70;
+        ui.rangeValue.value = 45;
+        ui.rangeValueBox.value = 45;
+        ui.checkedState.checked = true;
+
+        ui.textColor.value = "#00ffd0";
+        ui.bgColor1.value = "#0f172a";
+        ui.bgColor2.value = "#1d4ed8";
+        ui.gradientAngle.value = 135;
+        ui.borderColor.value = "#00ffc3";
+        ui.shadowColor.value = "#00ffc3";
+        ui.borderWidth.value = 2;
+        ui.radius.value = 16;
+        ui.shadowBlur.value = 18;
+        ui.borderStyle.value = "solid";
+        ui.opacity.value = 1;
+        ui.gradientToggle.value = "off";
+        ui.glassToggle.value = "off";
+        ui.neonToggle.value = "off";
+        ui.underlineToggle.value = "off";
+
+        ui.fontFamily.value = "Arial, Helvetica, sans-serif";
+        ui.fontWeight.value = "700";
+        ui.fontSize.value = 16;
+        ui.lineHeight.value = 1.4;
+        ui.letterSpacing.value = 0;
+        ui.textAlign.value = "left";
+        ui.textTransform.value = "none";
+        ui.padding.value = 12;
+        ui.margin.value = 0;
+        ui.widthValue.value = "";
+        ui.heightValue.value = "";
+
+        ui.hoverScale.value = 1.04;
+        ui.hoverLift.value = -2;
+        ui.hoverRotate.value = 0;
+        ui.activeScale.value = 0.98;
+        ui.transitionSpeed.value = 0.22;
+        ui.focusColor.value = "#00ffc3";
+        ui.focusWidth.value = 2;
+        ui.animationType.value = "none";
+        ui.animationDuration.value = 1.5;
+        ui.customCss.value = "";
+
+        render();
+        showToast("Sudah di-reset");
+      }, 0);
+    });
+
+    ui.tabButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        setTab(btn.dataset.tab);
+      });
+    });
+
+    ui.copyCurrent.addEventListener("click", () => copyText(activeCodeValue()));
+    ui.copyAll.addEventListener("click", () => copyText(ui.fullCode.value));
+    ui.download.addEventListener("click", () => downloadFile("desainerpro-plus.html", ui.fullCode.value));
+
+    ui.progressValue.addEventListener("input", () => {
+      ui.progressValueBox.value = ui.progressValue.value;
+      render();
+    });
+
+    ui.progressValueBox.addEventListener("input", () => {
+      ui.progressValue.value = clampNumber(ui.progressValueBox.value, 0, 100, 70);
+      render();
+    });
+
+    ui.rangeValue.addEventListener("input", () => {
+      ui.rangeValueBox.value = ui.rangeValue.value;
+      render();
+    });
+
+    ui.rangeValueBox.addEventListener("input", () => {
+      ui.rangeValue.value = clampNumber(ui.rangeValueBox.value, 0, 100, 45);
+      render();
+    });
+
+    // ---------- Init ----------
+    setTab("html");
+    render();
+  </script>
+</body>
+</html>
