@@ -1251,6 +1251,9 @@ Option 3</textarea>
       return escapeHtml(value).replace(/`/g, "&#96;");
     }
 
+    function escapeRegExp(value) {
+      return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
     function parseOptions(text) {
       const items = String(text || "")
         .split(/\n|,/)
@@ -1939,7 +1942,7 @@ ${scopedSelector} input:checked + .checkBox::before {
       const full = buildFullHtml(html, css);
 
       ui.previewFrame.innerHTML = buildPreviewHtml();
-      ui.previewStyle.textContent = css.replace(/#desainku/g, "#previewTarget").replace(/\.desainku/g, "#previewTarget");
+      ui.previewStyle.textContent = css.replace(new RegExp(escapeRegExp(selector), "g"), "#previewTarget");
       ui.htmlCode.value = html;
       ui.cssCode.value = css;
       ui.fullCode.value = full;
